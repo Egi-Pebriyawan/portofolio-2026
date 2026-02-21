@@ -3,14 +3,14 @@
 ## 👤 Developer Information
 
 Name: Egi Pebriyawan  
-Role: Web Developer & Profesional Teacher
-Focus: Dev & Teaching
+Role: Web Developer & Professional Teacher  
+Focus: Development & Education
 
 ---
 
 ## 🎯 Objective
 
-Create a modern, clean, and professional portfolio website that showcases skills, projects, experience, and educational background clearly for recruiters and clients.
+Create a modern, clean, and professional portfolio website using Vue.js that showcases skills, projects, experience, and educational background clearly for recruiters and clients.
 
 The website must be visually appealing, responsive, and easy to scan within 5–10 seconds.
 
@@ -18,9 +18,58 @@ The website must be visually appealing, responsive, and easy to scan within 5–
 
 ## 🧱 Tech Stack
 
+- Vue 3 (Composition API)
+- Vite
+- Tailwind CSS (via PostCSS)
+- JavaScript (ES6+)
 - HTML5
-- Tailwind CSS (via Vite / Tailwind CLI)
-- Vanilla JavaScript (if needed)
+
+---
+
+## 📁 Project Structure
+
+Use the following structure:
+
+/src  
+ /assets  
+ /images  
+ /icons  
+ /pdf (cv.pdf must be here)  
+ /components  
+ Navbar.vue  
+ Hero.vue  
+ About.vue  
+ Education.vue  
+ Skills.vue  
+ Projects.vue  
+ Experience.vue  
+ Contact.vue  
+ Footer.vue  
+ /views  
+ Home.vue  
+ /styles  
+ main.css  
+ App.vue  
+ main.js
+
+/public  
+ favicon.ico
+
+index.html  
+tailwind.config.js  
+vite.config.js
+
+---
+
+## ⚙️ Framework Rules
+
+- Use Vue 3 Composition API
+- Each section MUST be a separate component
+- Use reusable components when possible
+- Use proper import/export
+- Ensure project runs with:
+  npm install  
+  npm run dev
 
 ---
 
@@ -30,7 +79,39 @@ The website must be visually appealing, responsive, and easy to scan within 5–
 - Professional developer portfolio
 - Smooth and subtle animations
 - Responsive (mobile-first)
-- Dark mode (default)
+
+---
+
+## 🎨 Theme & UI Rules
+
+### Light Mode (Default)
+
+- Background: white
+- Text: slate-800
+- Accent: sky-400 / blue-400
+
+### Dark Mode
+
+- Background: slate-900
+- Text: slate-300
+
+- Use Tailwind dark mode (class strategy)
+
+---
+
+## 🌗 Dark Mode
+
+- Provide toggle button
+- Save preference in localStorage
+- Apply class-based dark mode
+
+---
+
+## 🎯 Icons
+
+- Use colored icons (Devicon or similar)
+- Consistent sizing
+- No grayscale icons
 
 ---
 
@@ -43,8 +124,8 @@ The website MUST include the following sections in order:
 3. About Section
 4. Education Section
 5. Skills Section (Marquee + Grid)
-6. Projects Section
-7. Experience Section
+6. Experience Section
+7. Projects Section
 8. Contact Section
 9. Footer
 
@@ -63,13 +144,16 @@ The website MUST include the following sections in order:
 
 Content:
 
-- Name : Egi Pebriyawan
-- Role : Teacher & Web Dev
+- Name: Egi Pebriyawan
+- Role: Teacher & Web Developer
 - Tagline:
-  "S1 Graduate | Post Graduate PPG Professional Teacher | Web Developer"
-- CTA Buttons:
-  - View Projects
-  - Contact Me
+  "S1 Graduate | Postgraduate PPG Professional Teacher | Web Developer"
+
+CTA Buttons:
+
+- View Projects
+- Contact Me
+- Download CV (IMPORTANT)
 
 Design:
 
@@ -78,13 +162,31 @@ Design:
 
 ---
 
+## 📄 CV Download
+
+- File location:
+  /src/assets/pdf/cv.pdf
+
+- Must include:
+  - About
+  - Skills
+  - Experience
+  - Education
+
+- Use anchor download attribute
+
+---
+
 ## 👨‍💻 About Section
 
-### About Me
+- Intro:
+  Hi, I'm Egi Pebriyawan, a passionate Web Developer focusing on building intuitive and scalable web applications.
 
-- Intro: Hi, I'm Egi Pebriyawan, a passionate Web Developer focusing on building intuitive and scalable web applications.
-- Background: A graduate (S1 - Infomation Technology ) and currently pursuing the Professional Teacher Education Program (PPG) at the postgraduate level.
-- Goals: Professional K-12 teacher dedicated to mastering new tech and writing clean, efficient, maintainable code. Empowering the next generation through technical excellence and modern pedagogy
+- Background:
+  A graduate (S1 - Information Technology) and currently pursuing the Professional Teacher Education Program (PPG) at Universitas Pendidikan Indonesia.
+
+- Goals:
+  Professional Secondary & Primary High School teacher dedicated to mastering new tech and writing clean, efficient, maintainable code. Empowering the next generation through technical excellence and modern pedagogy
 
 ---
 
@@ -102,7 +204,7 @@ Currently pursuing PPG to become a certified professional teacher while continui
 
 ## 🛠 Skills Section
 
-### PART A — Infinite Marquee
+### Marquee
 
 - Skill icons + names
 - Move left to right
@@ -111,13 +213,11 @@ Currently pursuing PPG to become a certified professional teacher while continui
 - Pause on hover
 - Duplicate content for seamless loop
 - Use Devicon icons
-- Default: grayscale
+- Default: color
 - Hover: full color
 - Use overflow-hidden container
 
----
-
-### PART B — Skills Grid
+### Grid
 
 - Responsive grid:
   - Mobile: 2 columns
@@ -141,11 +241,11 @@ Currently pursuing PPG to become a certified professional teacher while continui
 - Laravel — Intermediate
 - Filament — Intermediate
 - Vue — Intermediate
-- Vite - Intermediate
-- Ai Agent Skill - Intermediate
-- Git & Github - Intermediate
-- Network & Security - Intermediate
-- IT Support - Advanced
+- Vite — Intermediate
+- AI Agent — Intermediate
+- Git & GitHub — Intermediate
+- Network & Security — Intermediate
+- IT Support — Advanced
 
 ---
 
@@ -177,8 +277,6 @@ Each project must include:
 ---
 
 ## 🧳 Experience Section
-
-### Experience Data
 
 Title: Operations & Technical Support
 
@@ -219,23 +317,13 @@ Design:
 
 ---
 
-## 🎨 Theme & Customization
-
-- Background: bg-slate-900
-- Text: slate-300 (body), white (heading)
-- Accent color: indigo-500
-
----
-
 ## ⚙️ Development Constraints
 
 - Do NOT use Tailwind CDN
-- Use Vite / Tailwind CLI environment
-- Provide tailwind.config.js (extend keyframes & animation)
-- Use semantic HTML (nav, section, main, footer)
-- Add alt text for all images
-- Do not leave empty src attributes
-- Avoid inline CSS
+- Use Vite build system
+- Use semantic HTML
+- No inline CSS
+- All assets properly imported
 
 ---
 
@@ -246,8 +334,6 @@ Design:
 - No excessive motion
 - Optimize performance
 
----
-
 ## 🧠 UX Rules
 
 - Easy to scan quickly (5–10 seconds)
@@ -257,10 +343,33 @@ Design:
 
 ---
 
+## 🚫 Critical Rules
+
+- Do NOT ignore folder structure
+- Do NOT mix Vue with plain HTML
+- Ensure imports are valid
+- Ensure project runs without errors
+
+---
+
+## ▶️ Run Instructions
+
+npm install  
+npm run dev  
+npm run build
+
+---
+
 ## 📤 Output Requirements
 
-- Return full working HTML file
-- Include Tailwind classes
-- Include animation configuration
-- Clean, readable, and production-ready code
+- Full Vue project structure
+- All components included
+- Tailwind configured
+- Dark mode working
+- CV download working
+- Production-ready code
 - include explanations
+
+## Git Ignore
+
+- make file git ignore

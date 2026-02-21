@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Test</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .light {
+      background: #f9fafb;
+      color: #1f2937;
+    }
+    .dark {
+      background: #030712;
+      color: #f3f4f6;
+    }
+    .test-section {
+      padding: 20px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 2px solid;
+    }
+    .bg-white { background: white; }
+    .bg-gray-50 { background: #f9fafb; }
+    .dark .bg-white { background: #111827; }
+    .dark .bg-gray-50 { background: #030712; }
+    .border-gray-200 { border-color: #e5e7eb; }
+    .dark .border-gray-200 { border-color: #374151; }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px 5px;
+    }
+  </style>
+</head>
+<body class="light">
+  <h1>Dark Mode Test Page</h1>
+  
+  <div>
+    <button onclick="toggleDark()">Toggle Dark Mode</button>
+    <button onclick="checkStatus()">Check Status</button>
+  </div>
+  
+  <div id="test1" class="test-section bg-white border-gray-200">
+    <h2>Test Section 1 (bg-white)</h2>
+    <p>This should change color when dark mode toggles</p>
+  </div>
+  
+  <div id="test2" class="test-section bg-gray-50 border-gray-200">
+    <h2>Test Section 2 (bg-gray-50)</h2>
+    <p>This should also change color</p>
+  </div>
+  
+  <div id="test3" class="test-section" style="background: white; border: 2px solid #e5e7eb;">
+    <h2>Test Section 3 (inline styles)</h2>
+    <p>Testing inline styles</p>
+  </div>
+  
+  <script>
+    let isDark = false;
+    
+    function toggleDark() {
+      isDark = !isDark;
+      document.body.className = isDark ? 'dark' : 'light';
+      document.documentElement.classList.toggle('dark', isDark);
+      console.log('Toggled to:', isDark ? 'dark' : 'light');
+    }
+    
+    function checkStatus() {
+      const test1 = document.getElementById('test1');
+      const test2 = document.getElementById('test2');
+      const test3 = document.getElementById('test3');
+      
+      console.log('=== STATUS CHECK ===');
+      console.log('Body class:', document.body.className);
+      console.log('HTML class:', document.documentElement.className);
+      console.log('Is dark:', isDark);
+      console.log('Test 1 bg:', getComputedStyle(test1).backgroundColor);
+      console.log('Test 2 bg:', getComputedStyle(test2).backgroundColor);
+      console.log('Test 3 bg:', getComputedStyle(test3).backgroundColor);
+    }
+  </script>
+</body>
+</html>
