@@ -16,23 +16,35 @@
         <!-- Desktop Navigation -->
         <div class="hidden md:block">
           <div class="ml-8 flex items-baseline space-x-1">
-            <a
-              v-for="link in navLinks"
-              :key="link.name"
-              :href="link.href"
-              class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative"
-              :class="activeLink === link.href
-                ? 'text-blue-600 bg-blue-50'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50'"
-              @click.prevent="setActiveLink(link.href)"
-            >
-              {{ link.name }}
-              <!-- Active Indicator -->
-              <span
-                v-if="activeLink === link.href"
-                class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-600 rounded-full"
-              ></span>
-            </a>
+            <template v-for="link in navLinks" :key="link.name">
+              <!-- Route Link (PPG Pages) -->
+              <router-link
+                v-if="link.isRoute"
+                :to="link.href"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative text-gray-600 hover:text-gray-900 hover:bg-gray-100/50"
+                active-class="text-blue-600 bg-blue-50"
+              >
+                {{ link.name }}
+              </router-link>
+
+              <!-- Scroll Anchor Link (Home Sections) -->
+              <a
+                v-else
+                :href="link.href"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative"
+                :class="activeLink === link.href && route.path === '/'
+                  ? 'text-blue-600 bg-blue-50'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50'"
+                @click.prevent="setActiveLink(link.href)"
+              >
+                {{ link.name }}
+                <!-- Active Indicator -->
+                <span
+                  v-if="activeLink === link.href && route.path === '/'"
+                  class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-600 rounded-full"
+                ></span>
+              </a>
+            </template>
           </div>
         </div>
 
@@ -66,26 +78,42 @@
         class="md:hidden border-t border-gray-200/30 bg-white/95 backdrop-blur-xl"
       >
         <div class="px-4 pt-2 pb-3 space-y-1">
-          <a
-            v-for="link in navLinks"
-            :key="link.name"
-            :href="link.href"
-            class="block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300"
-            :class="activeLink === link.href
-              ? 'text-blue-600 bg-blue-50'
-              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50'"
-            @click.prevent="setActiveLink(link.href); mobileMenuOpen = false"
-          >
-            {{ link.name }}
-          </a>
+          <template v-for="link in navLinks" :key="link.name">
+            <!-- Route Link (PPG) -->
+            <router-link
+              v-if="link.isRoute"
+              :to="link.href"
+              class="block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300"
+              active-class="text-blue-600 bg-blue-50"
+              @click="mobileMenuOpen = false"
+            >
+              {{ link.name }}
+            </router-link>
+
+            <!-- Scroll Anchor Link -->
+            <a
+              v-else
+              :href="link.href"
+              class="block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300"
+              :class="activeLink === link.href && route.path === '/'"
+              @click.prevent="setActiveLink(link.href); mobileMenuOpen = false"
+            >
+              {{ link.name }}
+            </a>
+          </template>
         </div>
       </div>
     </transition>
+
   </nav>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
 
 const scrolled = ref(false);
 const mobileMenuOpen = ref(false);
@@ -98,17 +126,29 @@ const navLinks = [
   { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
   { name: 'Projects', href: '#projects' },
+  { name: 'E-Portfolio PPL', href: '/ppg', isRoute: true },
   { name: 'Contact', href: '#contact' },
 ];
 
 const setActiveLink = (href) => {
   activeLink.value = href;
   
-  // Smooth scroll to section with offset
+  if (route.path !== '/') {
+    router.push('/').then(() => {
+      setTimeout(() => {
+        scrollToSection(href);
+      }, 100);
+    });
+  } else {
+    scrollToSection(href);
+  }
+};
+
+const scrollToSection = (href) => {
   const element = document.querySelector(href);
   if (element) {
-    const navbarHeight = 64;  // Actual navbar height (h-16 = 64px)
-    const extraPadding = 25;  // Extra space for better visibility
+    const navbarHeight = 64;  // Actual navbar height
+    const extraPadding = 25;  // Extra space
     const elementPosition = element.offsetTop;
     const offsetPosition = elementPosition - navbarHeight - extraPadding;
 
@@ -122,14 +162,16 @@ const setActiveLink = (href) => {
 const handleScroll = () => {
   scrolled.value = window.scrollY > 50;
 
-  // Get all sections with their positions
+  if (route.path !== '/') return;
+
   const sections = [];
   
   navLinks.forEach(link => {
+    if (link.isRoute) return;
     const section = document.querySelector(link.href);
     if (section) {
-      const navbarHeight = 64;  // Actual navbar height (h-16 = 64px)
-      const extraPadding = 25;  // Extra space for better visibility
+      const navbarHeight = 64;
+      const extraPadding = 25;
       const sectionTop = section.offsetTop - navbarHeight - extraPadding;
       
       sections.push({
@@ -140,7 +182,6 @@ const handleScroll = () => {
     }
   });
 
-  // Find which section is currently in view
   const scrollPos = window.scrollY;
   
   for (let i = sections.length - 1; i >= 0; i--) {
