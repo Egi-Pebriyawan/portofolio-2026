@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
-    <Home />
+    <router-view />
     <ScrollToTop />
     <Footer />
   </div>
@@ -9,7 +9,6 @@
 
 <script setup>
 import Navbar from './components/Navbar.vue';
-import Home from './views/Home.vue';
 import Footer from './components/Footer.vue';
 import ScrollToTop from './components/ScrollToTop.vue';
 </script>
@@ -17,3 +16,4 @@ import ScrollToTop from './components/ScrollToTop.vue';
 <style>
 @import './styles/main.css';
 </style>
+
